@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>RabbitMQ安装与启动 | 在那桃花盛开的地方</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    
+
+    
+        <link rel="icon" href="/favicon.ico" />
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/libs/aplayer/APlayer.min.js"></script>
+    <script src="/libs/busuanzi/busuanzi.pure.mini.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?84405cc8993d00d19f760d6fa7ec02ca";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">在那桃花盛开的地方</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">主页</a>
+                
+                    <a class="main-nav-link" href="/archives">笔记</a>
+                
+                    <a class="main-nav-link" href="/categories/essay">杂文</a>
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+
+</div>
+
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">主页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">笔记</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories/essay">杂文</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            <section id="main"><article id="post-rabbitmq-install" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            RabbitMQ安装与启动
+        </h1>
+    
+
+                <!--
+                  
+                     <div class="article-meta">
+                         
+
+                     </div>
+                 
+                -->
+                
+                   <div class="article-meta">
+                       
+
+                       
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2016/11/23/rabbitmq-install/">
+            <time datetime="2016-11-22T16:00:00.000Z" itemprop="datePublished">2016-11-23</time>
+        </a>
+    </div>
+
+                 
+                   </div>
+               
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装erlang"><span class="toc-number">1.</span> <span class="toc-text">安装erlang</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装RabbitMQ"><span class="toc-number">2.</span> <span class="toc-text">安装RabbitMQ</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RabbitMQ安装管理插件"><span class="toc-number">3.</span> <span class="toc-text">RabbitMQ安装管理插件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RabbitMQ服务"><span class="toc-number">4.</span> <span class="toc-text">RabbitMQ服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#新增用户"><span class="toc-number">5.</span> <span class="toc-text">新增用户</span></a></li></ol>
+                </div>
+            
+            <p>说实话，在linux中安装rabbitmq还是比较繁琐的（个人认为），而且rabbitmq的一些配置什么的也不是很友好，出了问题不太容易直观的解决，这里稍微记录下。</p>
+<a id="more"></a>
+<h2 id="安装erlang"><a href="#安装erlang" class="headerlink" title="安装erlang"></a>安装erlang</h2><p>下载rpm仓库：wget <a href="http://packages.erlang-solutions.com/erlang-solutions-1.0-1.noarch.rpm" target="_blank" rel="noopener">http://packages.erlang-solutions.com/erlang-solutions-1.0-1.noarch.rpm</a></p>
+<p>安装rpm仓库<br><code>rpm -Uvh erlang-solutions-1.0-1.noarch.rpm</code></p>
+<p>安装erlang<br><code>yum -y install erlang</code></p>
+<p>安装完成，运行<code>erl -v</code>,显示如下，表示安装成功。</p>
+<blockquote>
+<p>Erlang/OTP 20 [erts-9.1] [source] [64-bit] [smp:1:1] [ds:1:1:10] [async-threads:10] [hipe] [kernel-poll:false]</p>
+</blockquote>
+<blockquote>
+<p> Eshell V8.1  (abort with ^G)<br> 1&gt;</p>
+</blockquote>
+<h2 id="安装RabbitMQ"><a href="#安装RabbitMQ" class="headerlink" title="安装RabbitMQ"></a>安装RabbitMQ</h2><p>下载RabbitMQ的rpm：<code>wget http://www.rabbitmq.com/releases/rabbitmq-server/v3.6.6/rabbitmq-server-3.6.6-1.el6.noarch.rpm</code></p>
+<p><code>yum -y install rabbitmq-server-3.6.6-1.el6.noarch.rpm</code></p>
+<h2 id="RabbitMQ安装管理插件"><a href="#RabbitMQ安装管理插件" class="headerlink" title="RabbitMQ安装管理插件"></a>RabbitMQ安装管理插件</h2><p><code>cd /usr/lib/rabbitmq/bin</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./rabbitmq-plugins <span class="built_in">enable</span> rabbitmq_management  启动插件</span><br><span class="line">./rabbitmq-plugins <span class="built_in">disable</span> rabbitmq_management 禁用插件</span><br><span class="line">./rabbitmq-plugins list  查看已经安装的插件</span><br></pre></td></tr></table></figure>
+<h2 id="RabbitMQ服务"><a href="#RabbitMQ服务" class="headerlink" title="RabbitMQ服务"></a>RabbitMQ服务</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">service rabbitmq-server start  启动服务</span><br><span class="line">service rabbitmq-server etc   查看哪些命令可以使用</span><br><span class="line">service rabbitmq-server stop  停止服务</span><br><span class="line">service rabbitmq-server status查看服务状态</span><br></pre></td></tr></table></figure>
+<h2 id="新增用户"><a href="#新增用户" class="headerlink" title="新增用户"></a>新增用户</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rabbitmqctl  add_user  Username  Password</span><br><span class="line">rabbitmqctl  set_user_tags  Username  administrator</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line">安装最新版本的rabbitmq(3.3.1)，并启用management plugin后，使用默认的账号guest登陆管理控制台，却提示登陆失败。</span><br><span class="line"></span><br><span class="line">翻看官方的release文档后，得知由于账号guest具有所有的操作权限，并且又是默认账号，出于安全因素的考虑，guest用户只能通过localhost登陆使用，并建议修改guest用户的密码以及新建其他账号管理使用rabbitmq(该功能是在3.3.0版本引入的)。</span><br><span class="line"></span><br><span class="line">虽然可以以比较猥琐的方式：将ebin目录下rabbit.app中loopback_users里的&lt;&lt;&quot;guest&quot;&gt;&gt;删除，</span><br><span class="line"> 并重启rabbitmq，可通过任意IP使用guest账号登陆管理控制台，但始终是违背了设计者的初衷，再加上以前对这一块了解也不多，因此有必要总结一下。</span><br><span class="line"></span><br><span class="line">1. 用户管理</span><br><span class="line"></span><br><span class="line">用户管理包括增加用户，删除用户，查看用户列表，修改用户密码。</span><br><span class="line"></span><br><span class="line">相应的命令</span><br><span class="line"></span><br><span class="line">(1) 新增一个用户</span><br><span class="line"></span><br><span class="line">rabbitmqctl  add_user  Username  Password</span><br><span class="line"></span><br><span class="line">(2) 删除一个用户</span><br><span class="line"></span><br><span class="line">rabbitmqctl  delete_user  Username</span><br><span class="line"></span><br><span class="line">(3) 修改用户的密码</span><br><span class="line"></span><br><span class="line">rabbitmqctl  change_password  Username  Newpassword</span><br><span class="line"></span><br><span class="line">(4) 查看当前用户列表</span><br><span class="line"></span><br><span class="line">rabbitmqctl  list_users</span><br><span class="line"></span><br><span class="line">2. 用户角色</span><br><span class="line"></span><br><span class="line">按照个人理解，用户角色可分为五类，超级管理员, 监控者, 策略制定者, 普通管理者以及其他。</span><br><span class="line"></span><br><span class="line">(1) 超级管理员(administrator)</span><br><span class="line"></span><br><span class="line">可登陆管理控制台(启用management plugin的情况下)，可查看所有的信息，并且可以对用户，策略(policy)进行操作。</span><br><span class="line"></span><br><span class="line">(2) 监控者(monitoring)</span><br><span class="line"></span><br><span class="line">可登陆管理控制台(启用management plugin的情况下)，同时可以查看rabbitmq节点的相关信息(进程数，内存使用情况，磁盘使用情况等)</span><br><span class="line"></span><br><span class="line">(3) 策略制定者(policymaker)</span><br><span class="line"></span><br><span class="line">可登陆管理控制台(启用management plugin的情况下), 同时可以对policy进行管理。但无法查看节点的相关信息(上图红框标识的部分)。</span><br><span class="line"></span><br><span class="line">与administrator的对比，administrator能看到这些内容</span><br><span class="line"></span><br><span class="line">(4) 普通管理者(management)</span><br><span class="line"></span><br><span class="line">仅可登陆管理控制台(启用management plugin的情况下)，无法看到节点信息，也无法对策略进行管理。</span><br><span class="line"></span><br><span class="line">(5) 其他</span><br><span class="line"></span><br><span class="line">无法登陆管理控制台，通常就是普通的生产者和消费者。</span><br><span class="line"></span><br><span class="line">了解了这些后，就可以根据需要给不同的用户设置不同的角色，以便按需管理。</span><br><span class="line"></span><br><span class="line">设置用户角色的命令为：</span><br><span class="line"></span><br><span class="line">rabbitmqctl  set_user_tags  User  Tag</span><br><span class="line"></span><br><span class="line">User为用户名， Tag为角色名(对应于上面的administrator，monitoring，policymaker，management，或其他自定义名称)。</span><br><span class="line"></span><br><span class="line">也可以给同一用户设置多个角色，例如</span><br><span class="line"></span><br><span class="line">rabbitmqctl  set_user_tags  hncscwc  monitoring  policymaker</span><br><span class="line"></span><br><span class="line">3. 用户权限</span><br><span class="line"></span><br><span class="line">用户权限指的是用户对exchange，queue的操作权限，包括配置权限，读写权限。配置权限会影响到exchange，queue的声明和删除。读写权限影响到从queue里取消息，向exchange发送消息以及queue和exchange的绑定(bind)操作。</span><br><span class="line"></span><br><span class="line">例如： 将queue绑定到某exchange上，需要具有queue的可写权限，以及exchange的可读权限；向exchange发送消息需要具有exchange的可写权限；从queue里取数据需要具有queue的可读权限。详细请参考官方文档中&quot;How permissions work&quot;部分。</span><br><span class="line"></span><br><span class="line">相关命令为：</span><br><span class="line"></span><br><span class="line">(1) 设置用户权限</span><br><span class="line"></span><br><span class="line">rabbitmqctl  set_permissions  -p  VHostPath  User  ConfP  WriteP  ReadP</span><br><span class="line"></span><br><span class="line">(2) 查看(指定hostpath)所有用户的权限信息</span><br><span class="line"></span><br><span class="line">rabbitmqctl  list_permissions  [-p  VHostPath]</span><br><span class="line"></span><br><span class="line">(3) 查看指定用户的权限信息</span><br><span class="line"></span><br><span class="line">rabbitmqctl  list_user_permissions  User</span><br><span class="line"></span><br><span class="line">(4)  清除用户的权限信息</span><br><span class="line"></span><br><span class="line">rabbitmqctl  clear_permissions  [-p VHostPath]  User</span><br></pre></td></tr></table></figure>
+
+        
+        </div>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2017/02/22/redis-install/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    Redis的安装与启动
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2016/11/19/hexo-travis-ci/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">Hexo博客托管Github Pages并结合Travis CI自动部署</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+      
+   <section id="comments">
+    <div id="gitalk-container"></div>
+
+</section>
+
+
+
+</section>
+        </div>
+        <footer id="footer">
+  <!--<script src="https://api.i-meto.com/music/player.js"></script>-->
+  <script src="/libs/aplayer/player.js"></script>
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2018 dmxiaoshen<br>
+            <div>
+              <script type="text/javascript" src="https://api.lwl12.com/hitokoto/main/get?encode=js&charset=utf-8"></script><div id="lwlhitokoto"><script>lwlhitokoto()</script></div>
+            </div>
+            <aside id="sidebar" style="float:right;width:0;margin-right:0px;">
+                <div id="toTop" class="fa fa-angle-up"></div>
+            </aside>
+        </div>
+    </div>
+</footer>
+
+        
+<link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<script src="/libs/gitalk/gitalk.min.js"></script>
+	<script>
+		var gitalk = new Gitalk({
+          clientID:  '1fabec40f979bccf8d4b',
+          clientSecret: 'b303e92f0dfe9d538517ef7d2663dfbf62dd3b7b',
+          repo: 'hexo-site-comment',
+		      id: window.location.pathname,
+          owner: 'dmxiaoshen',
+          admin: 'dmxiaoshen',
+		      distractionFreeMode: 'true',
+     })
+
+		if(document.getElementById("gitalk-container")!=null){
+    	 gitalk.render('gitalk-container');
+		 }
+	</script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

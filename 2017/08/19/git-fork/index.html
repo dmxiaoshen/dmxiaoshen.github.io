@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>GitHub上fork的代码如何同步更新 | 在那桃花盛开的地方</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    
+
+    
+        <link rel="icon" href="/favicon.ico" />
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/libs/aplayer/APlayer.min.js"></script>
+    <script src="/libs/busuanzi/busuanzi.pure.mini.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?84405cc8993d00d19f760d6fa7ec02ca";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">在那桃花盛开的地方</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">主页</a>
+                
+                    <a class="main-nav-link" href="/archives">笔记</a>
+                
+                    <a class="main-nav-link" href="/categories/essay">杂文</a>
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+
+</div>
+
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">主页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">笔记</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories/essay">杂文</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            <section id="main"><article id="post-git-fork" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            GitHub上fork的代码如何同步更新
+        </h1>
+    
+
+                <!--
+                  
+                     <div class="article-meta">
+                         
+
+                     </div>
+                 
+                -->
+                
+                   <div class="article-meta">
+                       
+
+                       
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2017/08/19/git-fork/">
+            <time datetime="2017-08-18T16:00:00.000Z" itemprop="datePublished">2017-08-19</time>
+        </a>
+    </div>
+
+                 
+                   </div>
+               
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li></ol>
+                </div>
+            
+            <p>github上有很多的代码，遇见心仪的项目总忍不住fork下来，但是过了一段时间以后原作者已经更新了提交，而我们的项目还是当时fork时的样子，该怎么办?<br><a id="more"></a></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>一般习惯是fork项目以后，不去动原有的分支，如果要自己修改代码，则从当前master新建一个分支如my-dev，这样比较清爽。</p>
+
+        
+        </div>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2017/09/02/travis-coding/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    Travis CI自动部署hexo到Coding Pages
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2017/08/03/atom-plugins/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">Atom安装markdown插件写博客</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+      
+   <section id="comments">
+    <div id="gitalk-container"></div>
+
+</section>
+
+
+
+</section>
+        </div>
+        <footer id="footer">
+  <!--<script src="https://api.i-meto.com/music/player.js"></script>-->
+  <script src="/libs/aplayer/player.js"></script>
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2018 dmxiaoshen<br>
+            <div>
+              <script type="text/javascript" src="https://api.lwl12.com/hitokoto/main/get?encode=js&charset=utf-8"></script><div id="lwlhitokoto"><script>lwlhitokoto()</script></div>
+            </div>
+            <aside id="sidebar" style="float:right;width:0;margin-right:0px;">
+                <div id="toTop" class="fa fa-angle-up"></div>
+            </aside>
+        </div>
+    </div>
+</footer>
+
+        
+<link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<script src="/libs/gitalk/gitalk.min.js"></script>
+	<script>
+		var gitalk = new Gitalk({
+          clientID:  '1fabec40f979bccf8d4b',
+          clientSecret: 'b303e92f0dfe9d538517ef7d2663dfbf62dd3b7b',
+          repo: 'hexo-site-comment',
+		      id: window.location.pathname,
+          owner: 'dmxiaoshen',
+          admin: 'dmxiaoshen',
+		      distractionFreeMode: 'true',
+     })
+
+		if(document.getElementById("gitalk-container")!=null){
+    	 gitalk.render('gitalk-container');
+		 }
+	</script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

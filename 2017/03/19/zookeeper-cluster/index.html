@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Zookeeper集群配置 | 在那桃花盛开的地方</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    
+
+    
+        <link rel="icon" href="/favicon.ico" />
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/libs/aplayer/APlayer.min.js"></script>
+    <script src="/libs/busuanzi/busuanzi.pure.mini.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?84405cc8993d00d19f760d6fa7ec02ca";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">在那桃花盛开的地方</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">主页</a>
+                
+                    <a class="main-nav-link" href="/archives">笔记</a>
+                
+                    <a class="main-nav-link" href="/categories/essay">杂文</a>
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+
+</div>
+
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">主页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">笔记</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories/essay">杂文</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            <section id="main"><article id="post-zookeeper-cluster" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            Zookeeper集群配置
+        </h1>
+    
+
+                <!--
+                  
+                     <div class="article-meta">
+                         
+
+                     </div>
+                 
+                -->
+                
+                   <div class="article-meta">
+                       
+
+                       
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2017/03/19/zookeeper-cluster/">
+            <time datetime="2017-03-18T16:00:00.000Z" itemprop="datePublished">2017-03-19</time>
+        </a>
+    </div>
+
+                 
+                   </div>
+               
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#修改zoo-cfg文件"><span class="toc-number">1.</span> <span class="toc-text">修改zoo.cfg文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建myid文件"><span class="toc-number">2.</span> <span class="toc-text">创建myid文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查看集群启动状态"><span class="toc-number">3.</span> <span class="toc-text">查看集群启动状态</span></a></li></ol>
+                </div>
+            
+            <p>zk集群是分布式系统比较基础的，而且其实也不难，主要是细心，这里详细记录一下。<br><a id="more"></a></p>
+<h2 id="修改zoo-cfg文件"><a href="#修改zoo-cfg文件" class="headerlink" title="修改zoo.cfg文件"></a>修改zoo.cfg文件</h2><p>以3台zookeeper集群为例</p>
+<p>以下操作针对3个zk,每个zk都需要如此操作</p>
+<p>假定zk路径都为: /usr/local/zookeeper-3.4.10</p>
+<p>首先新建一个data目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cd /usr/local/zookeeper-3.4.10</span><br><span class="line">$ mkdir data</span><br></pre></td></tr></table></figure>
+<p>修改zoo.cfg文件，其中</p>
+<blockquote>
+<p>dataDir=/tmp/zookeeper</p>
+</blockquote>
+<p>修改为</p>
+<blockquote>
+<p>dataDir=/usr/local/zookeeper-3.4.10/data</p>
+</blockquote>
+<p>注意: 如果是单台机器部署多个(伪集群)，则clientPort需修改为不同端口</p>
+<p>末尾添加如下配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">server.1=192.168.0.1:2888:3888</span><br><span class="line">server.2=192.168.0.2:2888:3888</span><br><span class="line">server.3=192.168.0.3:2888:3888</span><br></pre></td></tr></table></figure>
+<p>注意: 这里ip地址根据实际情况配置，也可以配置为host映射。如果是单台机器部署多个(伪集群)，则其中端口不能重复(2888,3888)</p>
+<h2 id="创建myid文件"><a href="#创建myid文件" class="headerlink" title="创建myid文件"></a>创建myid文件</h2><p>以下操作针对3个zk,每个zk都需要如此操作</p>
+<p>在刚才配置的</p>
+<p><code>dataDir=/usr/local/zookeeper-3.4.10/data</code></p>
+<p>目录下创建myid文件，内容为各自ip对应的server.X,也就是上述配置的1，2，3</p>
+<table>
+<thead>
+<tr>
+<th>zk地址</th>
+<th>文件</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>192.168.0.1</td>
+<td>myid</td>
+<td>1</td>
+</tr>
+<tr>
+<td>192.168.0.2</td>
+<td>myid</td>
+<td>2</td>
+</tr>
+<tr>
+<td>192.168.0.3</td>
+<td>myid</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+<h2 id="查看集群启动状态"><a href="#查看集群启动状态" class="headerlink" title="查看集群启动状态"></a>查看集群启动状态</h2><p>依次启动每一个zk</p>
+<p><code>$ ./zkServer.sh start</code></p>
+<p>执行如下命令查看状态</p>
+<p><code>$ ./zkServer.sh status</code></p>
+<p>输出如下:</p>
+<blockquote>
+<p>ZooKeeper JMX enabled by default<br>Using config: /usr/local/zookeeper-3.4.10/bin/../conf/zoo.cfg<br>Mode: leader</p>
+</blockquote>
+<p>或者:</p>
+<blockquote>
+<p>ZooKeeper JMX enabled by default<br>Using config: /usr/local/zookeeper-3.4.10/bin/../conf/zoo.cfg<br>Mode: follower</p>
+</blockquote>
+
+        
+        </div>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2017/04/23/favorites/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    编程系列文章汇总
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2017/03/15/zookeeper-logger/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">Zookeeper日志指定输出</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+      
+   <section id="comments">
+    <div id="gitalk-container"></div>
+
+</section>
+
+
+
+</section>
+        </div>
+        <footer id="footer">
+  <!--<script src="https://api.i-meto.com/music/player.js"></script>-->
+  <script src="/libs/aplayer/player.js"></script>
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2018 dmxiaoshen<br>
+            <div>
+              <script type="text/javascript" src="https://api.lwl12.com/hitokoto/main/get?encode=js&charset=utf-8"></script><div id="lwlhitokoto"><script>lwlhitokoto()</script></div>
+            </div>
+            <aside id="sidebar" style="float:right;width:0;margin-right:0px;">
+                <div id="toTop" class="fa fa-angle-up"></div>
+            </aside>
+        </div>
+    </div>
+</footer>
+
+        
+<link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<script src="/libs/gitalk/gitalk.min.js"></script>
+	<script>
+		var gitalk = new Gitalk({
+          clientID:  '1fabec40f979bccf8d4b',
+          clientSecret: 'b303e92f0dfe9d538517ef7d2663dfbf62dd3b7b',
+          repo: 'hexo-site-comment',
+		      id: window.location.pathname,
+          owner: 'dmxiaoshen',
+          admin: 'dmxiaoshen',
+		      distractionFreeMode: 'true',
+     })
+
+		if(document.getElementById("gitalk-container")!=null){
+    	 gitalk.render('gitalk-container');
+		 }
+	</script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

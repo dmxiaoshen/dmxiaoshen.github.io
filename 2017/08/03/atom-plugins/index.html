@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Atom安装markdown插件写博客 | 在那桃花盛开的地方</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    
+
+    
+        <link rel="icon" href="/favicon.ico" />
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/libs/aplayer/APlayer.min.js"></script>
+    <script src="/libs/busuanzi/busuanzi.pure.mini.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?84405cc8993d00d19f760d6fa7ec02ca";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">在那桃花盛开的地方</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">主页</a>
+                
+                    <a class="main-nav-link" href="/archives">笔记</a>
+                
+                    <a class="main-nav-link" href="/categories/essay">杂文</a>
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+
+</div>
+
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">主页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">笔记</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories/essay">杂文</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            <section id="main"><article id="post-atom-plugins" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            Atom安装markdown插件写博客
+        </h1>
+    
+
+                <!--
+                  
+                     <div class="article-meta">
+                         
+
+                     </div>
+                 
+                -->
+                
+                   <div class="article-meta">
+                       
+
+                       
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2017/08/03/atom-plugins/">
+            <time datetime="2017-08-02T16:00:00.000Z" itemprop="datePublished">2017-08-03</time>
+        </a>
+    </div>
+
+                 
+                   </div>
+               
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#插件"><span class="toc-number">2.</span> <span class="toc-text">插件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#simplified-chinese-menu插件"><span class="toc-number">2.1.</span> <span class="toc-text">simplified-chinese-menu插件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#language-markdown插件"><span class="toc-number">2.2.</span> <span class="toc-text">language-markdown插件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#markdown-preview-enhanced插件"><span class="toc-number">2.3.</span> <span class="toc-text">markdown-preview-enhanced插件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#markdown-scroll-sync插件"><span class="toc-number">2.4.</span> <span class="toc-text">markdown-scroll-sync插件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#markdown-table-editor插件"><span class="toc-number">2.5.</span> <span class="toc-text">markdown-table-editor插件</span></a></li></ol></li></ol>
+                </div>
+            
+            <p>自从用了markdown写博客，基本上是入坑了，用写代码般的思路及流畅程度，专注写作本身而不是各种排版。那么，最终问题变成，如何寻找一款本地编写markdown的软件变得非常迫切，在线的肯定不爽，很多编程IDE也支持md文件编写，如idea，eclipse或者一些前端IDE，但是总感觉少点什么，直到网上找到这款叫做Atom的软件。<br><a id="more"></a></p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Atom 是github专门为程序员推出的一个跨平台文本编辑器。具有简洁和直观的图形用户界面，并有很多有趣的特点：支持CSS，HTML，JavaScript等网页编程语言。它支持宏，自动完成分屏功能，集成了文件管理器。</p>
+<h2 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h2><p>这才是这款软件的核心啊，简直良心之作，话不多说，直接上菜。</p>
+<h3 id="simplified-chinese-menu插件"><a href="#simplified-chinese-menu插件" class="headerlink" title="simplified-chinese-menu插件"></a><a href="https://atom.io/packages/simplified-chinese-menu" target="_blank" rel="noopener">simplified-chinese-menu插件</a></h3><p>Atom 的简体中文汉化语言包,目前最全的汉化包。包含菜单汉化、右键菜单汉化以及设置汉化。</p>
+<h3 id="language-markdown插件"><a href="#language-markdown插件" class="headerlink" title="language-markdown插件"></a><a href="https://atom.io/packages/language-markdown" target="_blank" rel="noopener">language-markdown插件</a></h3><p>markdown语言增强，书写的时候能能有编写代码时自动提示补全这种操作。</p>
+<h3 id="markdown-preview-enhanced插件"><a href="#markdown-preview-enhanced插件" class="headerlink" title="markdown-preview-enhanced插件"></a><a href="https://atom.io/packages/markdown-preview-enhanced" target="_blank" rel="noopener">markdown-preview-enhanced插件</a></h3><p>markdown预览增强，使用此插件请先关闭自带的markdown-preview插件，预览是只需要ctrl+shift+M即可分屏预览。</p>
+<h3 id="markdown-scroll-sync插件"><a href="#markdown-scroll-sync插件" class="headerlink" title="markdown-scroll-sync插件"></a><a href="https://atom.io/packages/markdown-scroll-sync" target="_blank" rel="noopener">markdown-scroll-sync插件</a></h3><p>实时屏幕滚动预览，源文件滚动到哪，预览文件跟到哪，这实在是一目了然。</p>
+<h3 id="markdown-table-editor插件"><a href="#markdown-table-editor插件" class="headerlink" title="markdown-table-editor插件"></a><a href="https://atom.io/packages/markdown-table-editor" target="_blank" rel="noopener">markdown-table-editor插件</a></h3><p>我原来以为markdown编写表格已经很方便了，用了这款软件，没想到啊，原来之前都是渣操作啊，神作。</p>
+
+        
+        </div>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2017/08/19/git-fork/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    GitHub上fork的代码如何同步更新
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2017/07/18/centos7-bbr/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">Centos7开启bbr加速</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+      
+   <section id="comments">
+    <div id="gitalk-container"></div>
+
+</section>
+
+
+
+</section>
+        </div>
+        <footer id="footer">
+  <!--<script src="https://api.i-meto.com/music/player.js"></script>-->
+  <script src="/libs/aplayer/player.js"></script>
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2018 dmxiaoshen<br>
+            <div>
+              <script type="text/javascript" src="https://api.lwl12.com/hitokoto/main/get?encode=js&charset=utf-8"></script><div id="lwlhitokoto"><script>lwlhitokoto()</script></div>
+            </div>
+            <aside id="sidebar" style="float:right;width:0;margin-right:0px;">
+                <div id="toTop" class="fa fa-angle-up"></div>
+            </aside>
+        </div>
+    </div>
+</footer>
+
+        
+<link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<script src="/libs/gitalk/gitalk.min.js"></script>
+	<script>
+		var gitalk = new Gitalk({
+          clientID:  '1fabec40f979bccf8d4b',
+          clientSecret: 'b303e92f0dfe9d538517ef7d2663dfbf62dd3b7b',
+          repo: 'hexo-site-comment',
+		      id: window.location.pathname,
+          owner: 'dmxiaoshen',
+          admin: 'dmxiaoshen',
+		      distractionFreeMode: 'true',
+     })
+
+		if(document.getElementById("gitalk-container")!=null){
+    	 gitalk.render('gitalk-container');
+		 }
+	</script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Zookeeper日志指定输出 | 在那桃花盛开的地方</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    
+
+    
+        <link rel="icon" href="/favicon.ico" />
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/libs/aplayer/APlayer.min.js"></script>
+    <script src="/libs/busuanzi/busuanzi.pure.mini.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?84405cc8993d00d19f760d6fa7ec02ca";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">在那桃花盛开的地方</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">主页</a>
+                
+                    <a class="main-nav-link" href="/archives">笔记</a>
+                
+                    <a class="main-nav-link" href="/categories/essay">杂文</a>
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+
+</div>
+
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">主页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">笔记</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories/essay">杂文</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            <section id="main"><article id="post-zookeeper-logger" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            Zookeeper日志指定输出
+        </h1>
+    
+
+                <!--
+                  
+                     <div class="article-meta">
+                         
+
+                     </div>
+                 
+                -->
+                
+                   <div class="article-meta">
+                       
+
+                       
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2017/03/15/zookeeper-logger/">
+            <time datetime="2017-03-14T16:00:00.000Z" itemprop="datePublished">2017-03-15</time>
+        </a>
+    </div>
+
+                 
+                   </div>
+               
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#重命名zoo-sample-cfg为zoo-cfg"><span class="toc-number">1.</span> <span class="toc-text">重命名zoo_sample.cfg为zoo.cfg</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修改zk的log4j-properties文件"><span class="toc-number">2.</span> <span class="toc-text">修改zk的log4j.properties文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修改zkEnv-sh文件"><span class="toc-number">3.</span> <span class="toc-text">修改zkEnv.sh文件</span></a></li></ol>
+                </div>
+            
+            <p>zk的安装启动是比较容易的，但是网上很少有说明zk的日志该如何保存以及设置（有也是很零碎或者不简洁),这里结合网上的教程及自身实践，给出完整方案。<br><a id="more"></a></p>
+<h2 id="重命名zoo-sample-cfg为zoo-cfg"><a href="#重命名zoo-sample-cfg为zoo-cfg" class="headerlink" title="重命名zoo_sample.cfg为zoo.cfg"></a>重命名zoo_sample.cfg为zoo.cfg</h2><p>假设zk路径为: /usr/local/zookeeper-3.4.10</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cd /usr/local/zookeeper-3.4.10/conf</span><br><span class="line">$ mv zoo_sample.cfg zoo.cfg</span><br></pre></td></tr></table></figure>
+<h2 id="修改zk的log4j-properties文件"><a href="#修改zk的log4j-properties文件" class="headerlink" title="修改zk的log4j.properties文件"></a>修改zk的log4j.properties文件</h2><p><code>$ cd /usr/local/zookeeper-3.4.10/conf</code></p>
+<p>修改log4j.properties首行的</p>
+<blockquote>
+<p>zookeeper.root.logger=INFO, CONSOLE</p>
+</blockquote>
+<p>修改为</p>
+<blockquote>
+<p>zookeeper.root.logger=INFO, ROLLINGFILE</p>
+</blockquote>
+<p>这样就可以了，如果想要日志按天保存文件，则</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">log4j.appender.ROLLINGFILE=org.apache.log4j.RollingFileAppender</span><br><span class="line">修改为</span><br><span class="line">log4j.appender.ROLLINGFILE=org.apache.log4j.DailyRollingFileAppender</span><br></pre></td></tr></table></figure>
+<h2 id="修改zkEnv-sh文件"><a href="#修改zkEnv-sh文件" class="headerlink" title="修改zkEnv.sh文件"></a>修改zkEnv.sh文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ cd /usr/local/zookeeper-3.4.10/</span><br><span class="line">$ mkdir logs</span><br><span class="line">$ cd bin</span><br></pre></td></tr></table></figure>
+<p>首先建立logs目录，用于存放日志<br>修改zkEnv.sh文件</p>
+<blockquote>
+<p>ZOO_LOG_DIR=”/usr/local/zookeeper-3.4.10/logs”<br>ZOO_LOG4J_PROP=”INFO,ROLLINGFILE”</p>
+</blockquote>
+<p>这里的ZOO_LOG4J_PROP必须和第2步的zookeeper.root.logger一致。</p>
+
+        
+        </div>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2017/03/19/zookeeper-cluster/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    Zookeeper集群配置
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2017/02/22/redis-install/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">Redis的安装与启动</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+      
+   <section id="comments">
+    <div id="gitalk-container"></div>
+
+</section>
+
+
+
+</section>
+        </div>
+        <footer id="footer">
+  <!--<script src="https://api.i-meto.com/music/player.js"></script>-->
+  <script src="/libs/aplayer/player.js"></script>
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2018 dmxiaoshen<br>
+            <div>
+              <script type="text/javascript" src="https://api.lwl12.com/hitokoto/main/get?encode=js&charset=utf-8"></script><div id="lwlhitokoto"><script>lwlhitokoto()</script></div>
+            </div>
+            <aside id="sidebar" style="float:right;width:0;margin-right:0px;">
+                <div id="toTop" class="fa fa-angle-up"></div>
+            </aside>
+        </div>
+    </div>
+</footer>
+
+        
+<link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<script src="/libs/gitalk/gitalk.min.js"></script>
+	<script>
+		var gitalk = new Gitalk({
+          clientID:  '1fabec40f979bccf8d4b',
+          clientSecret: 'b303e92f0dfe9d538517ef7d2663dfbf62dd3b7b',
+          repo: 'hexo-site-comment',
+		      id: window.location.pathname,
+          owner: 'dmxiaoshen',
+          admin: 'dmxiaoshen',
+		      distractionFreeMode: 'true',
+     })
+
+		if(document.getElementById("gitalk-container")!=null){
+    	 gitalk.render('gitalk-container');
+		 }
+	</script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
